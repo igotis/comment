@@ -35,8 +35,8 @@ Vue.component('useritem', {
                     <p><em><u>Estimate:</u></em> {{user.stat}} </em></p>
                     <p><em><u>Time of comment:</u>{{user.time}}</p>
                     <i>Edit current comment:</i><input type="text" v-model="user.comment" /> 
-                    <button  @click="userDelete(index)">Delete coment</button>
-                    <button  @click="commenting(index)">Coment this</button>
+                    <button  @click="userDelete(index)">Delete comment</button>
+                    <button  @click="commenting(index)">Comment this</button>
 
                 </div>`,
     methods: {
