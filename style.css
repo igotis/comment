@@ -1,0 +1,35 @@
+
+
+.comment {
+    background-color: #eee;
+    display: inline-block;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+  }
+.comment-line {
+    border: 1px solid blue;
+    white-space: pre-line;
+}
+.fancyImage {
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+}
+#stat {
+    text-align: center;
+    padding-bottom: 10px;
+}
+header {
+    background: #aaa; 
+    color: red; 
+   }
+#app {
+    padding-bottom: 20px;
+}
+footer{
+    background: #aaa; 
+    text-align: center;
+   }
