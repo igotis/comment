@@ -1,5 +1,6 @@
 
 let statistic=0;
+
 Vue.component('userform', {
     props: ["users"],
     data: function () {
@@ -15,7 +16,7 @@ Vue.component('userform', {
                     <label for="one">Positive</label>
                     <input type="radio" id="two" value=Negative v-model="user.stat">
                     <label for="two">Negative</label><br>
-                    <button  v-on:click="userAdd">Add comment</button>
+                    <button  @click="userAdd">Add comment</button>
                 </div>`,
     methods: {
         userAdd: function(event){
@@ -28,27 +29,38 @@ Vue.component('userform', {
 });
 
 Vue.component('useritem', {
-    props: ["user", "index", "stat", "time"],
-    template: `<div class="comment col-md-8">
+    props: ["user", "index", "comment", "stat", "time", "users"],
+    data: function () {
+        return {
+            user: {name:'', comment:'', stat:'', time:'', parentId:0 }
+        }
+    },
+    template: `<div class="comment col-md-8 col-md-push-4">
                     <p class="User line"> <em><u>User:<u></em> {{user.name}}</p>
                     <p class="comment-line "> <em><u>Comment:</u></em> {{user.comment}} </p>
                     <p><em><u>Estimate:</u></em> {{user.stat}} </em></p>
                     <p><em><u>Time of comment:</u>{{user.time}}</p>
                     <i>Edit current comment:</i><input type="text" v-model="user.comment" /> 
                     <button  @click="userDelete(index)">Delete comment</button>
-                    <button  @click="commenting(index)">Comment this</button>
-
+                    <button  @click="userAdd">Comment this</button>
+                    
+                    
                 </div>`,
     methods: {
         userDelete: function(index){
             this.$emit('userdelete', index);},
         commenting: function(){
-            console.log (this.user.comment)}
+            console.log (this.user.comment)},
+        userAdd: function(event){
+            this.users.push({name:this.user.name, comment: this.user.comment,  time:new Date(), parentId:this.user.parentId });
+            if (this.user.stat=="Positive") {statistic++} else if (this.user.stat=="Negative") {statistic--};
+            document.getElementById('stat').innerHTML ="Statistics:" +  statistic;                        
+            }
+        
         
         
     }
 });
-
 
 
 new Vue({

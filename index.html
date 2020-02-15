@@ -32,19 +32,24 @@
     
        
     <div>
-        <useritem v-for="(user, index, stat, time, parentId) in users"
+        <useritem v-for="(user, index, comment, stat, time, parentId) in users"
                     :user="user"
                     :index="index"
                     @userdelete="remove"
+                    :users="users"    
+                    v-for="(user, index) in users"  
                     @commenting="commentthis"
                     >
+                        
         </useritem>
+        
+          
+        
     </div>
-    <div> 
-      <editcomment>
-
-      </editcomment>
-    </div>
+    
+    
+      
+    
 </div>
   <script src="script.js"></script>
 
