@@ -1,4 +1,5 @@
 
+
 let statistic=0;
 
 Vue.component('userform', {
@@ -23,7 +24,8 @@ Vue.component('userform', {
             this.users.push({name:this.user.name, comment: this.user.comment, stat:this.user.stat, time:new Date(), parentId:this.user.parentId });
             if (this.user.stat=="Positive") {statistic++} else if (this.user.stat=="Negative") {statistic--};
             document.getElementById('stat').innerHTML ="Statistics:" +  statistic;
-                        
+
+
         }
     }
 });
@@ -54,14 +56,16 @@ Vue.component('useritem', {
         userAdd: function(event){
             this.users.push({name:this.user.name, comment: this.user.comment,  time:new Date(), parentId:this.user.parentId });
             if (this.user.stat=="Positive") {statistic++} else if (this.user.stat=="Negative") {statistic--};
-            document.getElementById('stat').innerHTML ="Statistics:" +  statistic;                        
-            }
-        
-        
-        
+            document.getElementById('stat').innerHTML ="Statistics:" +  statistic;
+        }
+
+
+
     }
 });
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 new Vue({
     el: "#app",
@@ -69,15 +73,35 @@ new Vue({
         users:[],
         stat: statistic
 
+
     },
 
-    
 
-    methods:{
-        remove: function(index){
+
+    methods: {
+        remove: function (index) {
             this.users.splice(index, 1)
         },
-        commentthis: function(){}
-    }
-});
+        formSubmit(e) {
+            e.preventDefault();
+            let currentObj = this;
 
+        },
+        getComments(){
+            this.axios.post('http://mrt.lutsk.ua/comments/api/api.php', {
+                action: "index"
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    this.users = JSON.stringify(response.data).message;
+                })
+                .catch(function (error) {
+                    currentObj.output = error;
+                });
+        },
+        commentthis: function(){},
+    },
+    mounted() {
+        this.getComments();
+    }
+})
